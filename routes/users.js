@@ -9,4 +9,8 @@ router.get('/', function(req, res, next) {
   // res.send('sending user resource');
 });
 
+router.post('/registerUser',function(req,res,next){
+
+    userCtrl.registerUser(req,res,next);
+})
 module.exports = router;

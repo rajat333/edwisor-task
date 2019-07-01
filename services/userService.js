@@ -1,37 +1,31 @@
 var async = require('async');
 var domain = require('../model/index');
+var userValidation = require('../application-utilities/UserValidation');
+var setResponse = require('../application-utilities/SetResponse');
+var configrationHolder  = require('../configrations/ApplicationMessage'); 
 
-var userAction = function(bodyData,res,callback){
-    console.log('>>>>in>>User>>Service>>Action>>>');
+var userAction = function(bodyData,res){
+};
 
-    var userObj = new domain.User({  name:'Rajat', username:'khurana'+ new Date().toString() });
+async function registerUser( bodyData,res){
 
-    userObj.save(function(err,result){
-
-        console.log('>>err>>result>>>',err,result);
-        if(err) throw err;
-        else{
-            console.log('>>>>>>>>Success Achieved>>>>>',result);
-            res.send('respond with a resource');
-        }
-    });
-
-}
-
-var registerUser = async(  (bodyData,res)=>{
-
-    var userObj = new domain.User({  name:'Rajat', username:'khurana'+ new Date().toString() });
+    var userObj = new domain.User( bodyData);
 
     userObj.save(function(err,result){
+        if(err) {
 
-        console.log('>>err>>result>>>',err,result);
-        if(err) throw err;
+            setResponse.setError(  configrationHolder.Error.ExceptionOccur,
+                    configrationHolder.InternalAppMessage.ExceptionOccur,
+                    {},true,res); 
+        }
         else{
-            console.log('>>>>>>>>Success Achieved>>>>>',result);
-            res.send('respond with a resource');
+            var data  = result.toObject();
+            setResponse.setError(  configrationHolder.Success.Register,
+                configrationHolder.InternalAppMessage.Register,
+                data,false,res); 
         }
     });
-});
+};
 
 module.exports = {
     userAction: userAction,

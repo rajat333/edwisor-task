@@ -1,11 +1,37 @@
 
-var setSuccess  = function(){
+var setSuccess  = function( responseMessage, messageCode, data,error,response ){
 
-};
+    var responseObj  = {
+         response:{
+              responseCode: 200,
+              responseMessage: responseMessage,
+              messageCode: messageCode,
+         },
+         data:{
+             error: error,
+             ...data,
+         }
+    }
 
-var setError = function(){
-    
-}
+    response.json(responseObj);
+};   
+
+var setError = function( responseMessage, messageCode, data,error,response ){
+
+        var responseObj  = {
+             response:{
+                  responseCode: 200,
+                  responseMessage: responseMessage,
+                  messageCode: messageCode,
+             },
+             data:{
+                 error: error,
+                 ...data,
+             }
+        }
+
+        response.json(responseObj);
+};   
 
 module.exports = {
 
