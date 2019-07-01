@@ -2,10 +2,9 @@
 var userService = require('../services/userService');
 var authenticationMiddleware = require('../middleware/AuthenticationMiddleware');
 
-var userAction = function(req,res, callback){
-    console.log('>>>FirstCtrl>>>>>');
-    userService.userAction(req.body,res,callback);
-};
+// var userAction = function(req,res, callback){
+//     userService.userAction(req.body,res,callback);
+// };
 
 var registerUser = function(req,res){
 
@@ -19,7 +18,7 @@ var login = function(req,res){
 
 module.exports = {
  
-    userAction: userAction,
+    // userAction: userAction,
     registerUser: registerUser,
     login: login,
 }

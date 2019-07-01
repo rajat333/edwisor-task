@@ -51,6 +51,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-console.log('envConfig ',envConfig);
 app.listen(envConfig.port);
 module.exports = app;

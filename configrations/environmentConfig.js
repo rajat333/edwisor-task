@@ -1,6 +1,5 @@
 
 var getEnvironmentData = function(){
-    console.log('>>.In>>ENV>>DATA',process.env.NODE_ENV);
     switch(process.env.NODE_ENV){
 
         case 'development': 
