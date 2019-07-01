@@ -31,6 +31,14 @@ async function registerUser( bodyData,res){
 
 async function login(bodyData, res){
 
+    var isValid = userValidation.loginValidation(bodyData);
+
+    if(!isValid){
+        setResponse.setError( configrationHolder.Error.ValidationFail,
+                configrationHolder.InternalAppMessage.ValidationFail,
+                {},true,res);
+    }
+
     try {
       let validUser = await domain.User.find({ username: { $regex: bodyData.username , $options:'i' }, password: bodyData.password  });
       if(validUser.length > 0){
