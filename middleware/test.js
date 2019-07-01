@@ -1,7 +1,7 @@
 
 var logger = function(req,res,next){
 
-    console.log('>>>>>In>>>Middleware>>>>');
+    console.log('>> In Common Middleware>>>>',req.url);
     next();
 }
 

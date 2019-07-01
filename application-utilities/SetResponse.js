@@ -6,6 +6,7 @@ var setSuccess  = function( responseMessage, messageCode, data,error,response ){
               responseCode: 200,
               responseMessage: responseMessage,
               messageCode: messageCode,
+              serverDate: new Date(),
          },
          data:{
              error: error,
@@ -23,7 +24,8 @@ var setError = function( responseMessage, messageCode, data,error,response ){
                   responseCode: 200,
                   responseMessage: responseMessage,
                   messageCode: messageCode,
-             },
+                  serverDate: new Date(),
+            },
              data:{
                  error: error,
                  ...data,
