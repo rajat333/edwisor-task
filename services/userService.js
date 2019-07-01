@@ -19,22 +19,31 @@ async function registerUser( bodyData,res){
                 {},true,res);
     }else{
         try{
-            var userObj = new domain.User( bodyData);
+
+            var userExistWithUserName =  await domain.User.find({ username: { $regex: bodyData.username, $options:'i' } });
+            if(userExistWithUserName.length > 0){
+                setResponse.setError( configrationHolder.Error.UserExist,
+                        configrationHolder.InternalAppMessage.UserExist,{},true,res );
+
+            }else{
+                var userObj = new domain.User( bodyData);
         
-            userObj.save(function(err,result){
-                if(err) {
-        
-                    setResponse.setError(  configrationHolder.Error.ExceptionOccur,
-                            configrationHolder.InternalAppMessage.ExceptionOccur,
-                            {},true,res); 
-                }
-                else{
-                    var data  = result.toObject();
-                    setResponse.setError(  configrationHolder.Success.Register,
-                        configrationHolder.InternalAppMessage.Register,
-                        data,false,res); 
-                }
-            });
+                userObj.save(function(err,result){
+                    if(err) {
+            
+                        setResponse.setError(  configrationHolder.Error.ExceptionOccur,
+                                configrationHolder.InternalAppMessage.ExceptionOccur,
+                                {},true,res); 
+                    }
+                    else{
+                        var data  = result.toObject();
+                        setResponse.setError(  configrationHolder.Success.Register,
+                            configrationHolder.InternalAppMessage.Register,
+                            data,false,res); 
+                    }
+                });
+            }
+            
         
             }catch(err){
                 setResponse.setError( configrationHolder.Error.ExceptionOccur,
